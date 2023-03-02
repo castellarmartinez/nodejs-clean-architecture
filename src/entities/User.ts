@@ -13,18 +13,12 @@ export class User {
   gender: Genders;
   meta: any;
 
-  constructor({
-    id,
-    name = null,
-    lastName = null,
-    gender = Genders.NOT_SPECIFIED,
-    meta = {},
-  }: UserType) {
-    this.id = id;
-    this.name = name;
-    this.lastName = lastName;
-    this.gender = gender;
-    this.meta = meta;
+  constructor(input: UserType) {
+    this.id = input.id;
+    this.name = input.name || null;
+    this.lastName = input.lastName || null
+    this.gender = input.gender || Genders.NOT_SPECIFIED;
+    this.meta = input.meta || {};
   }
 }
 
