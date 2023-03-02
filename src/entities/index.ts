@@ -1,8 +1,7 @@
 import { User, Genders } from "./User";
 
-module.exports = {
-  User,
-  constants: {
-    Genders,
-  },
+const constants = {
+  Genders,
 };
+
+export { User, constants };
