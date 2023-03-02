@@ -1,3 +1,8 @@
 import { add, update, remove, getById } from "./userRepository";
 
-export { add, update, remove, getById };
+export const userRepository = {
+  add,
+  update,
+  remove,
+  getById,
+};

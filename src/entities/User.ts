@@ -1,9 +1,9 @@
 interface UserType {
   id?: string;
-  name: string | null;
-  lastName: string | null;
-  gender: Genders;
-  meta: any;
+  name?: string;
+  lastName?: string;
+  gender?: Genders;
+  meta?: object;
 }
 
 export class User {
@@ -11,7 +11,7 @@ export class User {
   lastName: string | null;
   name: string | null;
   gender: Genders;
-  meta: any;
+  meta: object;
 
   constructor(input: UserType) {
     this.id = input.id;
