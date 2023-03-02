@@ -1,5 +1,5 @@
 interface UserType {
-  id?: number;
+  id?: string;
   name: string | null;
   lastName: string | null;
   gender: Genders;
@@ -7,7 +7,7 @@ interface UserType {
 }
 
 export class User {
-  id: number | undefined;
+  id: string | undefined;
   lastName: string | null;
   name: string | null;
   gender: Genders;
