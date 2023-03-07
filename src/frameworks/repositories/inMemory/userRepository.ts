@@ -1,5 +1,4 @@
 import { inMemory as inMemoryDB } from "../../database";
-import { users } from "../../database/inMemory";
 import { v4 as uuidv4 } from "uuid";
 import { User } from "../../../entities";
 
@@ -26,10 +25,11 @@ export async function update(user: User) {
 
 export async function remove(user: User) {
   const index = inMemoryDB.users.findIndex((item) => item.id === user.id);
-
+  
   if (index >= 0) {
-    inMemoryDB.users.splice(index, 0);
-    return users;
+    inMemoryDB.users.splice(index, 1);
+
+    return inMemoryDB.users;
   }
 
   return null;
