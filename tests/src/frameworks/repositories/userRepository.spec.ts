@@ -9,6 +9,8 @@ describe("users repository tests", () => {
   let mockData: any;
 
   beforeEach(() => {
+    jest.resetAllMocks();
+
     mockData = {
       id: uuidv4(),
       name: chance.name(),
@@ -59,5 +61,11 @@ describe("users repository tests", () => {
     expect(user?.lastName).toBe(mockData.lastName);
     expect(user?.gender).toBe(mockData.gender);
     expect(user?.meta).toBe(mockData.meta);
+  });
+
+  it("should fail to get an user by id", async () => {
+    const user = await userRepository.getById(mockData.id);
+   
+    expect(user).toBeUndefined();
   });
 });

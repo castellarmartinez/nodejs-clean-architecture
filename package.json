@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest tests --coverage --runInBand",
+    "test": "jest --coverage",
     "start": "ts-node .",
     "start:dev": "ts-node-dev ."
   },
