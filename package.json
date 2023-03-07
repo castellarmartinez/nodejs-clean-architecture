@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest tests --coverage --runInBand",
     "start": "ts-node .",
     "start:dev": "ts-node-dev ."
   },
@@ -31,10 +31,6 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "src/**/*.{js, jsx, ts, tsx}",
-      "!<rootDir>/node_modules/"
-    ]
+    "testEnvironment": "node"
   }
 }
