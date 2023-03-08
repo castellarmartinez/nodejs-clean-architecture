@@ -46,8 +46,8 @@ describe("users repository tests", () => {
     const newUser = await userRepository.add(userData);
 
     expect(newUser).toEqual(userData);
-    expect(newUser.name).toBeNull();
-    expect(newUser.lastName).toBeNull();
+    expect(newUser.name).toBeUndefined();
+    expect(newUser.lastName).toBeUndefined();
     expect(newUser.gender).toBe(constants.Genders.NOT_SPECIFIED);
     expect(newUser.meta).toEqual({});
 
