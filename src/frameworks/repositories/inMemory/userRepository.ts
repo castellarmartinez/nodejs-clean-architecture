@@ -12,19 +12,19 @@ export async function add(user: User) {
   return user;
 }
 
-export async function update(user: User) {
-  const index = inMemoryDB.users.findIndex((item) => item.id === user.id);
+export async function update(updatedUser: User) {
+  const index = inMemoryDB.users.findIndex((user) => user.id === updatedUser.id);
 
   if (index >= 0) {
-    inMemoryDB.users[index] = user;
+    inMemoryDB.users[index] = updatedUser;
     return inMemoryDB.users[index];
   }
 
   return null;
 }
 
-export async function remove(user: User) {
-  const index = inMemoryDB.users.findIndex((item) => item.id === user.id);
+export async function remove(userToRemove: User) {
+  const index = inMemoryDB.users.findIndex((user) => user.id === userToRemove.id);
   
   if (index >= 0) {
     inMemoryDB.users.splice(index, 1);
@@ -36,5 +36,5 @@ export async function remove(user: User) {
 }
 
 export async function getById(id: string) {
-  return inMemoryDB.users.find((item) => item.id === id);
+  return inMemoryDB.users.find((user) => user.id === id);
 }

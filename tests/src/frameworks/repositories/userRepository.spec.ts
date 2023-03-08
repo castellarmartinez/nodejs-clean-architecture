@@ -69,18 +69,67 @@ describe("users repository tests", () => {
     expect(users).toBeNull();
   });
 
-  it("should update an existing user", async () => {});
+  it("should update an existing user", async () => {
+    const mockUser = new User(mockData);
+    const newUser = await userRepository.add(mockUser);
+
+    mockData = {
+      id: uuidv4(),
+      name: chance.name(),
+      lastName: chance.last(),
+      gender: constants.Genders.MALE,
+      meta: {
+        hair: {
+          color: "blonde",
+        },
+      },
+    };
+
+    const newMockUser = new User(mockData);
+    const user = await userRepository.update(newMockUser);
+
+    expect(user).toEqual(newMockUser);
+    expect(user?.name).toBe(newMockUser.name);
+    expect(user?.lastName).toBe(newMockUser.lastName);
+    expect(user?.gender).toBe(newMockUser.gender);
+    expect(user?.meta).toBe(newMockUser.meta);
+
+    await userRepository.remove(newUser);
+  });
+
+  it("should fail to update an user due to invalid user", async () => {
+    const mockUser = new User(mockData);
+    const newUser = await userRepository.add(mockUser);
+
+    mockData = {
+      id: "0362249f-6a2b-4d89-93ab-3d46530eb08a",
+      name: chance.name(),
+      lastName: chance.last(),
+      gender: constants.Genders.MALE,
+      meta: {
+        hair: {
+          color: "blonde",
+        },
+      },
+    };
+
+    const newMockUser = new User(mockData);
+    const user = await userRepository.update(newMockUser);
+
+    expect(user).toBeNull();
+    await userRepository.remove(newUser);
+  });
 
   it("should get an existing user by id", async () => {
     const mockUser = new User(mockData);
     const newUser = await userRepository.add(mockUser);
-    const user = await userRepository.getById(mockData.id);
+    const user = await userRepository.getById(newUser.id!);
 
     expect(user).toBeDefined();
-    expect(user?.name).toBe(mockData.name);
-    expect(user?.lastName).toBe(mockData.lastName);
-    expect(user?.gender).toBe(mockData.gender);
-    expect(user?.meta).toBe(mockData.meta);
+    expect(user?.name).toBe(newUser.name);
+    expect(user?.lastName).toBe(newUser.lastName);
+    expect(user?.gender).toBe(newUser.gender);
+    expect(user?.meta).toBe(newUser.meta);
 
     await userRepository.remove(newUser);
   });
