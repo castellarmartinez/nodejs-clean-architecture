@@ -1,8 +1,7 @@
-import { add, update, remove, getById } from "./userRepository";
+import * as userRepository from "./userRepository";
+import * as productRepository from "./productRepository";
 
-export const userRepository = {
-  add,
-  update,
-  remove,
-  getById,
-};
+export {
+  userRepository,
+  productRepository
+}

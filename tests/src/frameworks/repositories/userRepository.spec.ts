@@ -10,12 +10,12 @@ jest.mock("uuid", () => ({
 }));
 
 describe("users repository tests", () => {
-  let mockData: any;
+  let mockUserData: any;
 
   beforeEach(() => {
     jest.resetAllMocks();
 
-    mockData = {
+    mockUserData = {
       id: uuidv4(),
       name: chance.name(),
       lastName: chance.last(),
@@ -29,14 +29,14 @@ describe("users repository tests", () => {
   });
 
   it("should add and return a new user with custom values", async () => {
-    const mockUser = new User(mockData);
-    const newUser = await userRepository.add(mockUser);
+    const userData = new User(mockUserData);
+    const newUser = await userRepository.add(userData);
 
-    expect(newUser).toEqual(mockUser);
-    expect(newUser.name).toBe(mockUser.name);
-    expect(newUser.lastName).toBe(mockUser.lastName);
-    expect(newUser.gender).toBe(mockUser.gender);
-    expect(newUser.meta).toBe(mockUser.meta);
+    expect(newUser).toEqual(userData);
+    expect(newUser.name).toBe(userData.name);
+    expect(newUser.lastName).toBe(userData.lastName);
+    expect(newUser.gender).toBe(userData.gender);
+    expect(newUser.meta).toBe(userData.meta);
 
     await userRepository.remove(newUser);
   });
@@ -55,25 +55,25 @@ describe("users repository tests", () => {
   });
 
   it("should delete an existing user", async () => {
-    const mockUser = new User(mockData);
-    await userRepository.add(mockUser);
-    const users = await userRepository.remove(mockUser);
+    const userData = new User(mockUserData);
+    await userRepository.add(userData);
+    const users = await userRepository.remove(userData);
 
     expect(users).toEqual([]);
   });
 
   it("should fail to delete an user", async () => {
-    const mockUser = new User(mockData);
-    const users = await userRepository.remove(mockUser);
+    const userData = new User(mockUserData);
+    const users = await userRepository.remove(userData);
 
     expect(users).toBeNull();
   });
 
   it("should update an existing user", async () => {
-    const mockUser = new User(mockData);
-    const newUser = await userRepository.add(mockUser);
+    const userData = new User(mockUserData);
+    const newUser = await userRepository.add(userData);
 
-    mockData = {
+    mockUserData = {
       id: uuidv4(),
       name: chance.name(),
       lastName: chance.last(),
@@ -85,23 +85,23 @@ describe("users repository tests", () => {
       },
     };
 
-    const newMockUser = new User(mockData);
-    const user = await userRepository.update(newMockUser);
+    const newUserData = new User(mockUserData);
+    const user = await userRepository.update(newUserData);
 
-    expect(user).toEqual(newMockUser);
-    expect(user?.name).toBe(newMockUser.name);
-    expect(user?.lastName).toBe(newMockUser.lastName);
-    expect(user?.gender).toBe(newMockUser.gender);
-    expect(user?.meta).toBe(newMockUser.meta);
+    expect(user).toEqual(newUserData);
+    expect(user?.name).toBe(newUserData.name);
+    expect(user?.lastName).toBe(newUserData.lastName);
+    expect(user?.gender).toBe(newUserData.gender);
+    expect(user?.meta).toBe(newUserData.meta);
 
     await userRepository.remove(newUser);
   });
 
   it("should fail to update an user due to invalid user", async () => {
-    const mockUser = new User(mockData);
-    const newUser = await userRepository.add(mockUser);
+    const userData = new User(mockUserData);
+    const newUser = await userRepository.add(userData);
 
-    mockData = {
+    mockUserData = {
       id: "0362249f-6a2b-4d89-93ab-3d46530eb08a",
       name: chance.name(),
       lastName: chance.last(),
@@ -113,16 +113,16 @@ describe("users repository tests", () => {
       },
     };
 
-    const newMockUser = new User(mockData);
-    const user = await userRepository.update(newMockUser);
+    const newUserData = new User(mockUserData);
+    const user = await userRepository.update(newUserData);
 
     expect(user).toBeNull();
     await userRepository.remove(newUser);
   });
 
   it("should get an existing user by id", async () => {
-    const mockUser = new User(mockData);
-    const newUser = await userRepository.add(mockUser);
+    const userData = new User(mockUserData);
+    const newUser = await userRepository.add(userData);
     const user = await userRepository.getById(newUser.id!);
 
     expect(user).toBeDefined();
@@ -135,7 +135,7 @@ describe("users repository tests", () => {
   });
 
   it("should fail to get an user by id", async () => {
-    const user = await userRepository.getById(mockData.id);
+    const user = await userRepository.getById(mockUserData.id);
 
     expect(user).toBeUndefined();
   });
