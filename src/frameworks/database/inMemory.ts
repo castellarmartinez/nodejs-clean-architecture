@@ -1,7 +1,7 @@
-import { User, Product } from "../../entities";
+import { User, Product, Order } from "../../entities";
 
 export const users: User[] = [];
 
 export const products: Product[] = [];
 
-export const orders: User[] = [];
+export const orders: Order[] = [];
