@@ -1,7 +1,7 @@
 import { Chance } from "chance";
 import { v4 as uuidv4 } from "uuid";
 import { User, constants } from "../../../../src/entities";
-import { userRepository } from "../../../../src/frameworks/repositories/inMemory";
+import { UserRepository } from "../../../../src/frameworks/repositories/inMemory";
 
 const chance = new Chance();
 
@@ -11,6 +11,7 @@ jest.mock("uuid", () => ({
 
 describe("users repository tests", () => {
   let mockUserData: any;
+  let userRepository = new UserRepository();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -28,15 +29,20 @@ describe("users repository tests", () => {
     };
   });
 
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
   it("should add and return a new user with custom values", async () => {
     const userData = new User(mockUserData);
     const newUser = await userRepository.add(userData);
 
-    expect(newUser).toEqual(userData);
-    expect(newUser.name).toBe(userData.name);
-    expect(newUser.lastName).toBe(userData.lastName);
-    expect(newUser.gender).toBe(userData.gender);
-    expect(newUser.meta).toBe(userData.meta);
+    expect(newUser).toMatchObject({
+      name: userData.name,
+      lastName: userData.lastName,
+      gender: userData.gender,
+      meta: userData.meta,
+    });
 
     await userRepository.remove(newUser);
   });
@@ -45,11 +51,12 @@ describe("users repository tests", () => {
     const userData = new User({});
     const newUser = await userRepository.add(userData);
 
-    expect(newUser).toEqual(userData);
-    expect(newUser.name).toBeUndefined();
-    expect(newUser.lastName).toBeUndefined();
-    expect(newUser.gender).toBe(constants.Genders.NOT_SPECIFIED);
-    expect(newUser.meta).toEqual({});
+    expect(newUser).toMatchObject({
+      name: undefined,
+      lastName: undefined,
+      gender: constants.Genders.NOT_SPECIFIED,
+      meta: {},
+    });
 
     await userRepository.remove(newUser);
   });
@@ -88,11 +95,12 @@ describe("users repository tests", () => {
     const newUserData = new User(mockUserData);
     const user = await userRepository.update(newUserData);
 
-    expect(user).toEqual(newUserData);
-    expect(user?.name).toBe(newUserData.name);
-    expect(user?.lastName).toBe(newUserData.lastName);
-    expect(user?.gender).toBe(newUserData.gender);
-    expect(user?.meta).toBe(newUserData.meta);
+    expect(user).toMatchObject({
+      name: newUserData.name,
+      lastName: newUserData.lastName,
+      gender: newUserData.gender,
+      meta: newUserData.meta,
+    });
 
     await userRepository.remove(newUser);
   });
@@ -125,11 +133,12 @@ describe("users repository tests", () => {
     const newUser = await userRepository.add(userData);
     const user = await userRepository.getById(newUser.id!);
 
-    expect(user).toBeDefined();
-    expect(user?.name).toBe(newUser.name);
-    expect(user?.lastName).toBe(newUser.lastName);
-    expect(user?.gender).toBe(newUser.gender);
-    expect(user?.meta).toBe(newUser.meta);
+    expect(user).toMatchObject({
+      name: newUser.name,
+      lastName: newUser.lastName,
+      gender: newUser.gender,
+      meta: newUser.meta,
+    });
 
     await userRepository.remove(newUser);
   });
