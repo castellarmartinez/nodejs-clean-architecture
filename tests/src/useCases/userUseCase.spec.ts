@@ -5,7 +5,7 @@ import { userUseCase } from "../../../src/useCases/users";
 import { constants } from "../../../src/entities";
 import { Dependencies } from "../../../src/dependencies";
 import { UserRepository } from "../../../src/frameworks/repositories/inMemory";
-// import { Constants } from "../../../src/constants";
+import { Constants } from "../../../src/constants";
 
 jest.mock("uuid", () => ({
   v4: () => "444b10a3-02f2-4029-8617-5a5a3fd1f37e",
@@ -62,9 +62,7 @@ describe("tests for user use case", () => {
   it("should fail in adding a new user due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
-    const addUser = useCase.addUser(dependencies);
-
-    await expect(addUser(mockUserData))
-      .rejects.toThrow()
+    expect(() => useCase.addUser(dependencies))
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
   });
 });

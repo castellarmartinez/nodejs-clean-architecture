@@ -8,22 +8,17 @@ import { Dependencies } from "../../dependencies";
 export function addUser(dependencies: Dependencies) {
   const { userRepository } = dependencies;
 
-  try {
-    if (!userRepository) {
-      throw createHttpError(
-        Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.httpCode,
-        JSON.stringify(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD)
-      );
-    }
-
-    return (input: UserType) => {
-      const { name, lastName, gender, meta } = input;
-      const user = new User({ name, lastName, gender, meta });
-
-      return userRepository.add(user);
-    };
-
-  } catch (error) {
-    throw error;
+  if (!userRepository) {
+    throw createHttpError(
+      Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.httpCode,
+      JSON.stringify(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD)
+    );
   }
+
+  return (input: UserType) => {
+    const { name, lastName, gender, meta } = input;
+    const user = new User({ name, lastName, gender, meta });
+
+    return userRepository.add(user);
+  };
 }
