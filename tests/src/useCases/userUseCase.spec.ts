@@ -51,12 +51,7 @@ describe("tests for user use case", () => {
 
     await expect(addUser(mockUserData))
       .resolves
-      .toMatchObject({
-        name: mockUserData.name,
-        lastName: mockUserData.lastName,
-        gender: mockUserData.gender,
-        meta: mockUserData.meta,
-      });
+      .toMatchObject(mockUserData);
   });
 
   it("should fail in adding a new user due to a missing dependencie", async () => {
