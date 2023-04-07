@@ -38,7 +38,7 @@ describe("tests for user use case", () => {
       add: jest.fn().mockResolvedValue(mockUserData),
       update: jest.fn().mockResolvedValue({}),
       remove: jest.fn().mockResolvedValue({}),
-      getById: jest.fn().mockResolvedValue({}),
+      getById: jest.fn().mockResolvedValue(mockUserData),
     };
 
     dependencies = {
@@ -58,6 +58,21 @@ describe("tests for user use case", () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.addUser(dependencies))
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
+  });
+
+  it("should success in getting a user by id", async () => {
+    const getUserById = useCase.getUserById(dependencies);
+
+    await expect(getUserById(mockUserData.id))
+      .resolves
+      .toMatchObject(mockUserData);
+  });
+
+  it("should fail in getting a user by id due to a missing dependencie", async () => {
+    dependencies.userRepository = undefined as any;
+
+    expect(() => useCase.getUserById(dependencies))
       .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
   });
 });
