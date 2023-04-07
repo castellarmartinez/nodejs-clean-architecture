@@ -15,6 +15,7 @@ const chance = new Chance();
 
 describe("tests for user use case", () => {
   let mockUserData: any;
+  let mockUpdatedUser: any;
   let useCase = userUseCase;
   let dependencies: Dependencies;
   let userRepository: UserRepository;
@@ -34,9 +35,21 @@ describe("tests for user use case", () => {
       },
     };
 
+    mockUpdatedUser = {
+      id: uuidv4(),
+      name: chance.name(),
+      lastName: chance.last(),
+      gender: constants.Genders.FEMALE,
+      meta: {
+        hair: {
+          color: "green",
+        },
+      },
+    };
+
     userRepository = {
       add: jest.fn().mockResolvedValue(mockUserData),
-      update: jest.fn().mockResolvedValue({}),
+      update: jest.fn().mockResolvedValue(mockUpdatedUser),
       remove: jest.fn().mockResolvedValue({}),
       getById: jest.fn().mockResolvedValue(mockUserData),
     };
@@ -73,6 +86,21 @@ describe("tests for user use case", () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.getUserById(dependencies))
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
+  });
+
+  it("should success in update a user", async () => {
+    const updateUser = useCase.updateUser(dependencies);
+
+    await expect(updateUser(mockUpdatedUser))
+      .resolves
+      .toMatchObject(mockUpdatedUser);
+  });
+
+  it("should fail in updating a user due to a missing dependencie", async () => {
+    dependencies.userRepository = undefined as any;
+
+    expect(() => useCase.updateUser(dependencies))
       .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
   });
 });
