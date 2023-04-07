@@ -1,3 +1,4 @@
 import { addUser } from "./addUserUseCase";
+import { getUserById } from "./getUserByIdUseCase";
 
-export const userUseCase = { addUser };
+export const userUseCase = { addUser, getUserById };
