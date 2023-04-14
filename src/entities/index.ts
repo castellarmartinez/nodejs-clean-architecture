@@ -6,4 +6,4 @@ const constants = {
   Genders,
 };
 
-export { User, constants, Product, Order};
+export { User, constants, Product, Order };

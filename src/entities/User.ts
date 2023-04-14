@@ -16,7 +16,7 @@ export class User {
   constructor(input: UserType) {
     this.id = input.id;
     this.name = input.name;
-    this.lastName = input.lastName
+    this.lastName = input.lastName;
     this.gender = input.gender || Genders.NOT_SPECIFIED;
     this.meta = input.meta || {};
   }

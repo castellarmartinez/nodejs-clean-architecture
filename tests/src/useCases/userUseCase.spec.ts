@@ -56,7 +56,7 @@ describe("tests for user use case", () => {
 
     dependencies = {
       userRepository,
-    };
+    } as Dependencies;
   });
 
   it("should be successful in adding a new user", async () => {

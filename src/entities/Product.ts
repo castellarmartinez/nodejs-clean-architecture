@@ -1,4 +1,4 @@
-interface ProductType {
+export interface ProductType {
   id?: string;
   name?: string;
   description?: string;
@@ -20,7 +20,7 @@ export class Product {
   constructor(input: ProductType) {
     this.id = input.id;
     this.name = input.name;
-    this.description = input.description
+    this.description = input.description;
     this.images = input.images || [];
     this.price = input.price;
     this.color = input.color;

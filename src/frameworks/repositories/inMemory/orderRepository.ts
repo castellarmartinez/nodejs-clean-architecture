@@ -13,7 +13,9 @@ export async function add(order: Order) {
 }
 
 export async function update(updatedOrder: Order) {
-  const index = inMemoryDB.orders.findIndex((order) => order.id === updatedOrder.id);
+  const index = inMemoryDB.orders.findIndex(
+    (order) => order.id === updatedOrder.id
+  );
 
   if (index >= 0) {
     inMemoryDB.orders[index] = updatedOrder;
@@ -24,8 +26,10 @@ export async function update(updatedOrder: Order) {
 }
 
 export async function remove(orderToRemove: Order) {
-  const index = inMemoryDB.orders.findIndex((order) => order.id === orderToRemove.id);
-  
+  const index = inMemoryDB.orders.findIndex(
+    (order) => order.id === orderToRemove.id
+  );
+
   if (index >= 0) {
     inMemoryDB.orders.splice(index, 1);
 

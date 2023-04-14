@@ -9,4 +9,9 @@ export const httpErrors = {
     code: "USER_REPOSITORY_NOT_FOUD",
     message: "The user repository should exist in dependencies",
   },
+  PRODUCT_REPOSITORY_NOT_FOUD: {
+    httpCode: 404,
+    code: "PRODUCT_REPOSITORY_NOT_FOUD",
+    message: "The product repository should exist in dependencies",
+  },
 };
