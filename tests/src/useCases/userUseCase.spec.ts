@@ -50,7 +50,7 @@ describe("tests for user use case", () => {
     userRepository = {
       add: jest.fn().mockResolvedValue(mockUserData),
       update: jest.fn().mockResolvedValue(mockUpdatedUser),
-      remove: jest.fn().mockResolvedValue({}),
+      remove: jest.fn().mockResolvedValue([]),
       getById: jest.fn().mockResolvedValue(mockUserData),
     };
 
@@ -59,7 +59,7 @@ describe("tests for user use case", () => {
     };
   });
 
-  it("should success in adding a new user", async () => {
+  it("should be successful in adding a new user", async () => {
     const addUser = useCase.addUser(dependencies);
 
     await expect(addUser(mockUserData))
@@ -67,14 +67,14 @@ describe("tests for user use case", () => {
       .toMatchObject(mockUserData);
   });
 
-  it("should fail in adding a new user due to a missing dependencie", async () => {
+  it("should fail when adding a new user due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.addUser(dependencies))
       .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
   });
 
-  it("should success in getting a user by id", async () => {
+  it("should be successful in getting a user by id", async () => {
     const getUserById = useCase.getUserById(dependencies);
 
     await expect(getUserById(mockUserData.id))
@@ -82,14 +82,14 @@ describe("tests for user use case", () => {
       .toMatchObject(mockUserData);
   });
 
-  it("should fail in getting a user by id due to a missing dependencie", async () => {
+  it("should fail when getting a user by id due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.getUserById(dependencies))
       .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
   });
 
-  it("should success in update a user", async () => {
+  it("should be successful in updating a user", async () => {
     const updateUser = useCase.updateUser(dependencies);
 
     await expect(updateUser(mockUpdatedUser))
@@ -97,10 +97,35 @@ describe("tests for user use case", () => {
       .toMatchObject(mockUpdatedUser);
   });
 
-  it("should fail in updating a user due to a missing dependencie", async () => {
+  it("should fail when updating a user due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.updateUser(dependencies))
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
+  });
+
+  it("should be successful in deleting a user", async () => {
+    const deleteUser = useCase.deleteUser(dependencies);
+
+    await expect(deleteUser(mockUserData))
+      .resolves
+      .toMatchObject([]);
+  });
+
+  it("should fail when deleting a user due tu a non existing user", async () => {
+    dependencies.userRepository.remove = jest.fn().mockResolvedValue(null);
+
+    const deleteUser = useCase.deleteUser(dependencies);
+
+    await expect(deleteUser())
+      .resolves
+      .toBeNull();
+  });
+
+  it("should fail when deleting a user due to a missing dependencie", async () => {
+    dependencies.userRepository = undefined as any;
+
+    expect(() => useCase.deleteUser(dependencies))
       .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
   });
 });
