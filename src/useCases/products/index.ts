@@ -3,4 +3,4 @@ import { getProductById } from "./getProductByIdUseCase";
 import { updateProduct } from "./updateProductUseCase";
 import { deleteProduct } from "./deleteProductUseCase";
 
-export const userUseCase = { addProduct, getProductById, updateProduct, deleteProduct };
+export const productUseCase = { addProduct, getProductById, updateProduct, deleteProduct };
