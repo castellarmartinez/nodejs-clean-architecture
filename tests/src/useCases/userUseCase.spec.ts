@@ -14,8 +14,8 @@ jest.mock("uuid", () => ({
 const chance = new Chance();
 
 describe("tests for user use case", () => {
-  let mockUserData: any;
-  let mockUpdatedUser: any;
+  let mockedUserData: any;
+  let mockedUpdatedUser: any;
   let useCase = userUseCase;
   let dependencies: Dependencies;
   let userRepository: UserRepository;
@@ -23,7 +23,7 @@ describe("tests for user use case", () => {
   beforeEach(() => {
     jest.resetAllMocks();
 
-    mockUserData = {
+    mockedUserData = {
       id: uuidv4(),
       name: chance.name(),
       lastName: chance.last(),
@@ -35,7 +35,7 @@ describe("tests for user use case", () => {
       },
     };
 
-    mockUpdatedUser = {
+    mockedUpdatedUser = {
       id: uuidv4(),
       name: chance.name(),
       lastName: chance.last(),
@@ -48,10 +48,10 @@ describe("tests for user use case", () => {
     };
 
     userRepository = {
-      add: jest.fn().mockResolvedValue(mockUserData),
-      update: jest.fn().mockResolvedValue(mockUpdatedUser),
+      add: jest.fn().mockResolvedValue(mockedUserData),
+      update: jest.fn().mockResolvedValue(mockedUpdatedUser),
       remove: jest.fn().mockResolvedValue([]),
-      getById: jest.fn().mockResolvedValue(mockUserData),
+      getById: jest.fn().mockResolvedValue(mockedUserData),
     };
 
     dependencies = {
@@ -62,9 +62,9 @@ describe("tests for user use case", () => {
   it("should be successful in adding a new user", async () => {
     const addUser = useCase.addUser(dependencies);
 
-    await expect(addUser(mockUserData))
+    await expect(addUser(mockedUserData))
       .resolves
-      .toMatchObject(mockUserData);
+      .toMatchObject(mockedUserData);
   });
 
   it("should fail when adding a new user due to a missing dependencie", async () => {
@@ -77,9 +77,9 @@ describe("tests for user use case", () => {
   it("should be successful in getting a user by id", async () => {
     const getUserById = useCase.getUserById(dependencies);
 
-    await expect(getUserById(mockUserData.id))
+    await expect(getUserById(mockedUserData.id))
       .resolves
-      .toMatchObject(mockUserData);
+      .toMatchObject(mockedUserData);
   });
 
   it("should fail when getting a user by id due to a missing dependencie", async () => {
@@ -92,9 +92,9 @@ describe("tests for user use case", () => {
   it("should be successful in updating a user", async () => {
     const updateUser = useCase.updateUser(dependencies);
 
-    await expect(updateUser(mockUpdatedUser))
+    await expect(updateUser(mockedUpdatedUser))
       .resolves
-      .toMatchObject(mockUpdatedUser);
+      .toMatchObject(mockedUpdatedUser);
   });
 
   it("should fail when updating a user due to a missing dependencie", async () => {
@@ -107,7 +107,7 @@ describe("tests for user use case", () => {
   it("should be successful in deleting a user", async () => {
     const deleteUser = useCase.deleteUser(dependencies);
 
-    await expect(deleteUser(mockUserData))
+    await expect(deleteUser(mockedUserData))
       .resolves
       .toMatchObject([]);
   });
