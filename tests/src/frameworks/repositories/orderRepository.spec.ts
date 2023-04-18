@@ -12,12 +12,12 @@ jest.mock("uuid", () => ({
 jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
 describe("test suit for orders repository", () => {
-  let mockOrderData: any;
+  let mockedOrderData: any;
 
   beforeEach(() => {
     jest.resetAllMocks();
 
-    mockOrderData = {
+    mockedOrderData = {
       id: uuidv4(),
       userdId: uuidv4(),
       productsId: [uuidv4(), uuidv4()],
@@ -30,7 +30,7 @@ describe("test suit for orders repository", () => {
   });
 
   it("should add and return a new order with custom values", async () => {
-    const orderData = new Order(mockOrderData);
+    const orderData = new Order(mockedOrderData);
     const newOrder = await orderRepository.add(orderData);
 
     expect(newOrder).toEqual(orderData);
@@ -60,7 +60,7 @@ describe("test suit for orders repository", () => {
   });
 
   it("should delete an existing order", async () => {
-    const orderData = new Order(mockOrderData);
+    const orderData = new Order(mockedOrderData);
     await orderRepository.add(orderData);
     const orders = await orderRepository.remove(orderData);
 
@@ -68,17 +68,17 @@ describe("test suit for orders repository", () => {
   });
 
   it("should fail to delete an order", async () => {
-    const orderData = new Order(mockOrderData);
+    const orderData = new Order(mockedOrderData);
     const orders = await orderRepository.remove(orderData);
 
     expect(orders).toBeNull();
   });
 
   it("should update an existing order", async () => {
-    const orderData = new Order(mockOrderData);
+    const orderData = new Order(mockedOrderData);
     const newOrder = await orderRepository.add(orderData);
 
-    mockOrderData = {
+    mockedOrderData = {
       id: uuidv4(),
       userdId: uuidv4(),
       productsId: [uuidv4()],
@@ -88,7 +88,7 @@ describe("test suit for orders repository", () => {
       },
     };
 
-    const neworderData = new Order(mockOrderData);
+    const neworderData = new Order(mockedOrderData);
     const order = await orderRepository.update(neworderData);
 
     expect(order).toEqual(neworderData);
@@ -103,10 +103,10 @@ describe("test suit for orders repository", () => {
   });
 
   it("should fail to update an order due to invalid order", async () => {
-    const orderData = new Order(mockOrderData);
+    const orderData = new Order(mockedOrderData);
     const newOrder = await orderRepository.add(orderData);
 
-    mockOrderData = {
+    mockedOrderData = {
       id: "0362249f-6a2b-4d89-93ab-7d46530eb08a",
       productsId: [uuidv4()],
       date: new Date(),
@@ -115,7 +115,7 @@ describe("test suit for orders repository", () => {
       },
     };
 
-    const neworderData = new Order(mockOrderData);
+    const neworderData = new Order(mockedOrderData);
     const user = await orderRepository.update(neworderData);
 
     expect(user).toBeNull();
@@ -123,7 +123,7 @@ describe("test suit for orders repository", () => {
   });
 
   it("should get an existing order by id", async () => {
-    const orderData = new Order(mockOrderData);
+    const orderData = new Order(mockedOrderData);
     const newOrder = await orderRepository.add(orderData);
     const order = await orderRepository.getById(newOrder.id!);
 
@@ -139,7 +139,7 @@ describe("test suit for orders repository", () => {
   });
 
   it("should fail to get an order by id", async () => {
-    const order = await orderRepository.getById(mockOrderData.id);
+    const order = await orderRepository.getById(mockedOrderData.id);
 
     expect(order).toBeUndefined();
   });

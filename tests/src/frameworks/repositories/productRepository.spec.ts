@@ -1,7 +1,7 @@
 import { Chance } from "chance";
 import { v4 as uuidv4 } from "uuid";
 import { Product } from "../../../../src/entities";
-import { productRepository } from "../../../../src/frameworks/repositories/inMemory";
+import { ProductRepository } from "../../../../src/frameworks/repositories/inMemory";
 
 const chance = new Chance();
 
@@ -10,12 +10,13 @@ jest.mock("uuid", () => ({
 }));
 
 describe("test suit for product repository", () => {
-  let mockProductData: any;
+  let mockedProductData: any;
+  const productRepository = new ProductRepository();
 
   beforeEach(() => {
     jest.resetAllMocks();
 
-    mockProductData = {
+    mockedProductData = {
       id: uuidv4(),
       name: chance.name(),
       description: chance.paragraph(),
@@ -29,7 +30,7 @@ describe("test suit for product repository", () => {
   });
 
   it("should add and return a new product with custom values", async () => {
-    const productData = new Product(mockProductData);
+    const productData = new Product(mockedProductData);
     const newProduct = await productRepository.add(productData);
 
     expect(newProduct).toEqual(productData);
@@ -58,7 +59,7 @@ describe("test suit for product repository", () => {
   });
 
   it("should delete an existing product", async () => {
-    const productData = new Product(mockProductData);
+    const productData = new Product(mockedProductData);
     await productRepository.add(productData);
     const products = await productRepository.remove(productData);
 
@@ -66,17 +67,17 @@ describe("test suit for product repository", () => {
   });
 
   it("should fail to delete an product", async () => {
-    const productData = new Product(mockProductData);
+    const productData = new Product(mockedProductData);
     const products = await productRepository.remove(productData);
 
     expect(products).toBeNull();
   });
 
   it("should update an existing product", async () => {
-    const productData = new Product(mockProductData);
+    const productData = new Product(mockedProductData);
     const newProduct = await productRepository.add(productData);
 
-    mockProductData = {
+    mockedProductData = {
       id: uuidv4(),
       name: chance.name(),
       description: chance.paragraph(),
@@ -88,7 +89,7 @@ describe("test suit for product repository", () => {
       },
     };
 
-    const newProductData = new Product(mockProductData);
+    const newProductData = new Product(mockedProductData);
     const product = await productRepository.update(newProductData);
 
     expect(product).toEqual(newProductData);
@@ -103,10 +104,10 @@ describe("test suit for product repository", () => {
   });
 
   it("should fail to update an product due to invalid product", async () => {
-    const productData = new Product(mockProductData);
+    const productData = new Product(mockedProductData);
     const newProduct = await productRepository.add(productData);
 
-    mockProductData = {
+    mockedProductData = {
       id: "0362249f-6a2b-4d89-93ab-7d46530eb08a",
       name: chance.name(),
       description: chance.paragraph(),
@@ -118,7 +119,7 @@ describe("test suit for product repository", () => {
       },
     };
 
-    const newProductData = new Product(mockProductData);
+    const newProductData = new Product(mockedProductData);
     const user = await productRepository.update(newProductData);
 
     expect(user).toBeNull();
@@ -126,7 +127,7 @@ describe("test suit for product repository", () => {
   });
 
   it("should get an existing product by id", async () => {
-    const productData = new Product(mockProductData);
+    const productData = new Product(mockedProductData);
     const newProduct = await productRepository.add(productData);
     const product = await productRepository.getById(newProduct.id!);
 
@@ -142,7 +143,7 @@ describe("test suit for product repository", () => {
   });
 
   it("should fail to get an product by id", async () => {
-    const product = await productRepository.getById(mockProductData.id);
+    const product = await productRepository.getById(mockedProductData.id);
 
     expect(product).toBeUndefined();
   });
