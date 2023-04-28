@@ -131,7 +131,7 @@ describe("users repository tests", () => {
   it("should get an existing user by id", async () => {
     const userData = new User(mockedUserData);
     const newUser = await userRepository.add(userData);
-    const user = await userRepository.getById(newUser.id!);
+    const user = await userRepository.getById(newUser.id as string);
 
     expect(user).toMatchObject({
       name: newUser.name,

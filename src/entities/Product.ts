@@ -2,7 +2,7 @@ export interface ProductType {
   id?: string;
   name?: string;
   description?: string;
-  images?: any[];
+  images?: object[];
   price?: number;
   color?: string;
   meta?: object;
@@ -12,7 +12,7 @@ export class Product {
   id: string | undefined;
   name: string | undefined;
   description: string | undefined;
-  images: any[];
+  images: object[];
   price: number | undefined;
   color: string | undefined;
   meta: object;

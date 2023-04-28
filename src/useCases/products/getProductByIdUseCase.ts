@@ -13,7 +13,5 @@ export function getProductById(dependencies: Dependencies) {
     );
   }
 
-  return (id: string) => {
-    return productRepository.getById(id);
-  };
+  return (id: string) => productRepository.getById(id);
 }

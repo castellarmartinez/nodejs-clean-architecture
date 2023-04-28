@@ -14,9 +14,7 @@ export class UserRepository {
   }
 
   async update(updatedUser: User): Promise<User | null> {
-    const index = inMemoryDB.users.findIndex(
-      (user) => user.id === updatedUser.id
-    );
+    const index = inMemoryDB.users.findIndex(user => user.id === updatedUser.id);
 
     if (index >= 0) {
       inMemoryDB.users[index] = updatedUser;
@@ -27,9 +25,7 @@ export class UserRepository {
   }
 
   async remove(userToRemove: User): Promise<User[] | null> {
-    const index = inMemoryDB.users.findIndex(
-      (user) => user.id === userToRemove.id
-    );
+    const index = inMemoryDB.users.findIndex(user => user.id === userToRemove.id);
 
     if (index >= 0) {
       inMemoryDB.users.splice(index, 1);
@@ -41,6 +37,6 @@ export class UserRepository {
   }
 
   async getById(id: string): Promise<User | undefined> {
-    return inMemoryDB.users.find((user) => user.id === id);
+    return inMemoryDB.users.find(user => user.id === id);
   }
 }

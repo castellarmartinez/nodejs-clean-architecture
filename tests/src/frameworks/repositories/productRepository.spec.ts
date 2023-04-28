@@ -133,7 +133,7 @@ describe("test suit for product repository", () => {
   it("should get an existing product by id", async () => {
     const productData = new Product(mockedProductData);
     const newProduct = await productRepository.add(productData);
-    const product = await productRepository.getById(newProduct.id!);
+    const product = await productRepository.getById(newProduct.id as string);
 
     expect(product).toMatchObject({
       name: newProduct.name,

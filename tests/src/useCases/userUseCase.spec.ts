@@ -16,7 +16,7 @@ const chance = new Chance();
 describe("tests for user use case", () => {
   let mockedUserData: any;
   let mockedUpdatedUser: any;
-  let useCase = userUseCase;
+  const useCase = userUseCase;
   let dependencies: Dependencies;
   let userRepository: UserRepository;
 
@@ -71,7 +71,7 @@ describe("tests for user use case", () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.addUser(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
   });
 
   it("should be successful in getting a user by id", async () => {
@@ -86,7 +86,7 @@ describe("tests for user use case", () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.getUserById(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
   });
 
   it("should be successful in updating a user", async () => {
@@ -101,7 +101,7 @@ describe("tests for user use case", () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.updateUser(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
   });
 
   it("should be successful in deleting a user", async () => {
@@ -126,6 +126,6 @@ describe("tests for user use case", () => {
     dependencies.userRepository = undefined as any;
 
     expect(() => useCase.deleteUser(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
   });
 });

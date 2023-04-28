@@ -1,7 +1,7 @@
 import { Chance } from "chance";
 import { v4 as uuidv4 } from "uuid";
 import { Order } from "../../../../src/entities";
-import { orderRepository } from "../../../../src/frameworks/repositories/inMemory";
+import { OrderRepository } from "../../../../src/frameworks/repositories/inMemory";
 
 const chance = new Chance();
 
@@ -13,6 +13,7 @@ jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
 describe("test suit for orders repository", () => {
   let mockedOrderData: any;
+  const orderRepository = new OrderRepository();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -49,7 +50,7 @@ describe("test suit for orders repository", () => {
     const newOrder = await orderRepository.add(orderData);
 
     expect(newOrder).toEqual(orderData);
-    expect(newOrder.id).toBe(orderData.id)
+    expect(newOrder.id).toBe(orderData.id);
     expect(newOrder.userId).toBeUndefined();
     expect(newOrder.productsId).toEqual([]);
     expect(newOrder.date).toEqual(new Date());
@@ -125,12 +126,12 @@ describe("test suit for orders repository", () => {
   it("should get an existing order by id", async () => {
     const orderData = new Order(mockedOrderData);
     const newOrder = await orderRepository.add(orderData);
-    const order = await orderRepository.getById(newOrder.id!);
+    const order = await orderRepository.getById(newOrder.id as string);
 
     expect(order).toBeDefined();
     expect(order?.id).toBe(newOrder.id);
     expect(order?.userId).toBe(newOrder.userId);
-    expect(order?.productsId).toBe(newOrder.productsId);;
+    expect(order?.productsId).toBe(newOrder.productsId);
     expect(order?.date).toEqual(new Date());
     expect(order?.isPayed).toBe(newOrder.isPayed);
     expect(order?.meta).toEqual(newOrder.meta);

@@ -13,7 +13,5 @@ export function getUserById(dependencies: Dependencies) {
     );
   }
 
-  return (id: string) => {
-    return userRepository.getById(id);
-  };
+  return (id: string) => userRepository.getById(id);
 }

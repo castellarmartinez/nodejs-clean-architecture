@@ -15,7 +15,7 @@ const chance = new Chance();
 describe("tests for user use case", () => {
   let mockedProductData: any;
   let mockedUpdatedProduct: any;
-  let useCase = productUseCase;
+  const useCase = productUseCase;
   let dependencies: Dependencies;
   let productRepository: ProductRepository;
 
@@ -70,7 +70,7 @@ describe("tests for user use case", () => {
     dependencies.productRepository = undefined as any;
 
     expect(() => useCase.addProduct(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
   });
 
   it("should be successful in getting a product by id", async () => {
@@ -85,7 +85,7 @@ describe("tests for user use case", () => {
     dependencies.productRepository = undefined as any;
 
     expect(() => useCase.getProductById(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
   });
 
   it("should be successful in updating a product", async () => {
@@ -100,7 +100,7 @@ describe("tests for user use case", () => {
     dependencies.productRepository = undefined as any;
 
     expect(() => useCase.updateProduct(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
   });
 
   it("should be successful in deleting a product", async () => {
@@ -125,6 +125,6 @@ describe("tests for user use case", () => {
     dependencies.productRepository = undefined as any;
 
     expect(() => useCase.deleteProduct(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message)
+      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
   });
 });
