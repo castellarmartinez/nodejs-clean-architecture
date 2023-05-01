@@ -1,4 +1,4 @@
-interface OrderType {
+export interface OrderType {
   id?: string;
   userId?: string;
   productsId?: string[];
