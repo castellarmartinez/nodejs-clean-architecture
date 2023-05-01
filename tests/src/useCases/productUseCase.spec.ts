@@ -12,7 +12,7 @@ jest.mock("uuid", () => ({
 
 const chance = new Chance();
 
-describe("tests for user use case", () => {
+describe("tests for product use case", () => {
   let mockedProductData: any;
   let mockedUpdatedProduct: any;
   const useCase = productUseCase;
