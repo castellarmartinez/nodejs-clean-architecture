@@ -1,3 +1,3 @@
-import { Response, ResponseError } from "./response";
+import { SuccessResponse, ErrorResponse } from "./response";
 
-export { Response, ResponseError };
+export { SuccessResponse, ErrorResponse };
