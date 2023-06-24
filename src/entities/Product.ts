@@ -21,9 +21,9 @@ export class Product {
     this.id = input.id;
     this.name = input.name;
     this.description = input.description;
-    this.images = input.images || [];
+    this.images = input.images ?? [];
     this.price = input.price;
     this.color = input.color;
-    this.meta = input.meta || {};
+    this.meta = input.meta ?? {};
   }
 }

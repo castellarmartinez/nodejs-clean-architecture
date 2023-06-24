@@ -18,9 +18,9 @@ export class Order {
   constructor(input: OrderType) {
     this.id = input.id;
     this.userId = input.userId;
-    this.productsId = input.productsId || [];
-    this.date = input.date || new Date();
-    this.isPayed = input.isPayed || false;
-    this.meta = input.meta || {};
+    this.productsId = input.productsId ?? [];
+    this.date = input.date ?? new Date();
+    this.isPayed = input.isPayed ?? false;
+    this.meta = input.meta ?? {};
   }
 }
