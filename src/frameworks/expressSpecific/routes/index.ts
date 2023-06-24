@@ -8,4 +8,4 @@ export function routes(dependencies: any) {
   router.use("/users", users);
 
   return router;
-};
+}
