@@ -7,7 +7,7 @@ export default (dependencies: any) => {
     userControllers(dependencies);
 
     router.route("./").post(addUser).delete(deleteUser).put(updateUser);
-    router.route(".id").get(getUserById);
+    router.route("./:id").get(getUserById);
 
     return router;
 };
