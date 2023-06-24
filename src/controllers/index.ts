@@ -1,3 +1,3 @@
-import * as userControllers from "./user";
+import userControllers from "./user";
 
 export { userControllers };
