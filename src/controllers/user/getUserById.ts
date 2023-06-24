@@ -6,8 +6,8 @@ import { SuccessResponse } from "../../frameworks/common";
 export default function (dependencies: Dependencies) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { body = {} } = req;
-      const { id }: { id: string } = body;
+      const { params = {} } = req;
+      const { id } = params;
 
       const getUserById = userUseCase.getUserById(dependencies);
       const response = await getUserById(id);
