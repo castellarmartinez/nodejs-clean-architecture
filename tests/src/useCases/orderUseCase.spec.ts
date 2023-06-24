@@ -28,24 +28,24 @@ describe("tests for order use case", () => {
 
     mockedOrderData = {
       id: uuidv4(),
-      userId: userId,
-      productsId: productsId,
       date: new Date(),
       isPayed: chance.bool(),
       meta: {
         texture: "silk",
       },
+      userId,
+      productsId,
     };
 
     mockedUpdatedOrder = {
       id: uuidv4(),
-      userId: userId,
-      productsId: productsId,
       date: new Date(),
       isPayed: chance.bool(),
       meta: {
         texture: "wooden",
       },
+      userId,
+      productsId,
     };
 
     orderRepository = {
