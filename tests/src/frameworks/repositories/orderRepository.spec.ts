@@ -9,7 +9,7 @@ jest.mock("uuid", () => ({
   v4: () => "444b10a3-02f2-4029-8617-5a5a3fd1f37e",
 }));
 
-jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
+jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
 
 describe("test suit for orders repository", () => {
   let mockedOrderData: any;

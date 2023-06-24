@@ -63,54 +63,55 @@ describe("tests for order use case", () => {
   it("should be successful in adding a new order", async () => {
     const addOrder = useCase.addOrder(dependencies);
 
-    await expect(addOrder(mockedOrderData))
-      .resolves
-      .toMatchObject(mockedOrderData);
+    await expect(addOrder(mockedOrderData)).resolves.toMatchObject(
+      mockedOrderData
+    );
   });
 
   it("should fail when adding a new order due to a missing dependencie", async () => {
     dependencies.orderRepository = undefined as any;
 
-    expect(() => useCase.addOrder(dependencies))
-      .toThrow(Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.addOrder(dependencies)).toThrow(
+      Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in getting an order by id", async () => {
     const getOrderById = useCase.getOrderById(dependencies);
 
-    await expect(getOrderById(mockedOrderData.id))
-      .resolves
-      .toMatchObject(mockedOrderData);
+    await expect(getOrderById(mockedOrderData.id)).resolves.toMatchObject(
+      mockedOrderData
+    );
   });
 
   it("should fail when getting an order by id due to a missing dependencie", async () => {
     dependencies.orderRepository = undefined as any;
 
-    expect(() => useCase.getOrderById(dependencies))
-      .toThrow(Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.getOrderById(dependencies)).toThrow(
+      Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in updating an order", async () => {
     const updateOrder = useCase.updateOrder(dependencies);
 
-    await expect(updateOrder(mockedUpdatedOrder))
-      .resolves
-      .toMatchObject(mockedUpdatedOrder);
+    await expect(updateOrder(mockedUpdatedOrder)).resolves.toMatchObject(
+      mockedUpdatedOrder
+    );
   });
 
   it("should fail when updating an order due to a missing dependencie", async () => {
     dependencies.orderRepository = undefined as any;
 
-    expect(() => useCase.updateOrder(dependencies))
-      .toThrow(Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.updateOrder(dependencies)).toThrow(
+      Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in deleting an order", async () => {
     const deleteOrder = useCase.deleteOrder(dependencies);
 
-    await expect(deleteOrder(mockedOrderData))
-      .resolves
-      .toMatchObject([]);
+    await expect(deleteOrder(mockedOrderData)).resolves.toMatchObject([]);
   });
 
   it("should fail when deleting an order due tu a non existing order", async () => {
@@ -118,15 +119,14 @@ describe("tests for order use case", () => {
 
     const deleteOrder = useCase.deleteOrder(dependencies);
 
-    await expect(deleteOrder())
-      .resolves
-      .toBeNull();
+    await expect(deleteOrder()).resolves.toBeNull();
   });
 
   it("should fail when deleting an order due to a missing dependencie", async () => {
     dependencies.orderRepository = undefined as any;
 
-    expect(() => useCase.deleteOrder(dependencies))
-      .toThrow(Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.deleteOrder(dependencies)).toThrow(
+      Constants.httpErrors.ORDER_REPOSITORY_NOT_FOUD.message
+    );
   });
 });

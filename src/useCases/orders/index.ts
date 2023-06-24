@@ -3,4 +3,9 @@ import { getOrderById } from "./getOrderByIdUseCase";
 import { deleteOrder } from "./deleteOrderUseCase";
 import { updateOrder } from "./updateOrderUseCase";
 
-export const orderUseCase = { addOrder, getOrderById, deleteOrder, updateOrder };
+export const orderUseCase = {
+  addOrder,
+  getOrderById,
+  deleteOrder,
+  updateOrder,
+};

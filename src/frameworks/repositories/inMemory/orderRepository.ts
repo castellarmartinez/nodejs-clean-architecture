@@ -14,7 +14,9 @@ export class OrderRepository {
   }
 
   async update(updatedOrder: Order) {
-    const index = inMemoryDB.orders.findIndex(order => order.id === updatedOrder.id);
+    const index = inMemoryDB.orders.findIndex(
+      (order) => order.id === updatedOrder.id
+    );
 
     if (index >= 0) {
       inMemoryDB.orders[index] = updatedOrder;
@@ -25,7 +27,9 @@ export class OrderRepository {
   }
 
   async remove(orderToRemove: Order) {
-    const index = inMemoryDB.orders.findIndex(order => order.id === orderToRemove.id);
+    const index = inMemoryDB.orders.findIndex(
+      (order) => order.id === orderToRemove.id
+    );
 
     if (index >= 0) {
       inMemoryDB.orders.splice(index, 1);
@@ -37,7 +41,6 @@ export class OrderRepository {
   }
 
   async getById(id: string) {
-    return inMemoryDB.orders.find(order => order.id === id);
+    return inMemoryDB.orders.find((order) => order.id === id);
   }
-
 }

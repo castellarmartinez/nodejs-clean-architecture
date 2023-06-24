@@ -14,7 +14,9 @@ export class ProductRepository {
   }
 
   async update(updatedProduct: Product) {
-    const index = inMemoryDB.products.findIndex(product => product.id === updatedProduct.id);
+    const index = inMemoryDB.products.findIndex(
+      (product) => product.id === updatedProduct.id
+    );
 
     if (index >= 0) {
       inMemoryDB.products[index] = updatedProduct;
@@ -25,7 +27,9 @@ export class ProductRepository {
   }
 
   async remove(productToRemove: Product) {
-    const index = inMemoryDB.products.findIndex(product => product.id === productToRemove.id);
+    const index = inMemoryDB.products.findIndex(
+      (product) => product.id === productToRemove.id
+    );
 
     if (index >= 0) {
       inMemoryDB.products.splice(index, 1);
@@ -37,6 +41,6 @@ export class ProductRepository {
   }
 
   async getById(id: string) {
-    return inMemoryDB.products.find(product => product.id === id);
+    return inMemoryDB.products.find((product) => product.id === id);
   }
 }

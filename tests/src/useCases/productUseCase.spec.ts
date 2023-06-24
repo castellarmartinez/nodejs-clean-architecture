@@ -61,54 +61,55 @@ describe("tests for product use case", () => {
   it("should be successful in adding a new product", async () => {
     const addProduct = useCase.addProduct(dependencies);
 
-    await expect(addProduct(mockedProductData))
-      .resolves
-      .toMatchObject(mockedProductData);
+    await expect(addProduct(mockedProductData)).resolves.toMatchObject(
+      mockedProductData
+    );
   });
 
   it("should fail when adding a new product due to a missing dependencie", async () => {
     dependencies.productRepository = undefined as any;
 
-    expect(() => useCase.addProduct(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.addProduct(dependencies)).toThrow(
+      Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in getting a product by id", async () => {
     const getProductById = useCase.getProductById(dependencies);
 
-    await expect(getProductById(mockedProductData.id))
-      .resolves
-      .toMatchObject(mockedProductData);
+    await expect(getProductById(mockedProductData.id)).resolves.toMatchObject(
+      mockedProductData
+    );
   });
 
   it("should fail when getting a product by id due to a missing dependencie", async () => {
     dependencies.productRepository = undefined as any;
 
-    expect(() => useCase.getProductById(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.getProductById(dependencies)).toThrow(
+      Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in updating a product", async () => {
     const updateProduct = useCase.updateProduct(dependencies);
 
-    await expect(updateProduct(mockedUpdatedProduct))
-      .resolves
-      .toMatchObject(mockedUpdatedProduct);
+    await expect(updateProduct(mockedUpdatedProduct)).resolves.toMatchObject(
+      mockedUpdatedProduct
+    );
   });
 
   it("should fail when updating a product due to a missing dependencie", async () => {
     dependencies.productRepository = undefined as any;
 
-    expect(() => useCase.updateProduct(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.updateProduct(dependencies)).toThrow(
+      Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in deleting a product", async () => {
     const deleteProduct = useCase.deleteProduct(dependencies);
 
-    await expect(deleteProduct(mockedProductData))
-      .resolves
-      .toMatchObject([]);
+    await expect(deleteProduct(mockedProductData)).resolves.toMatchObject([]);
   });
 
   it("should fail when deleting a product due tu a non existing product", async () => {
@@ -116,15 +117,14 @@ describe("tests for product use case", () => {
 
     const deleteProduct = useCase.deleteProduct(dependencies);
 
-    await expect(deleteProduct())
-      .resolves
-      .toBeNull();
+    await expect(deleteProduct()).resolves.toBeNull();
   });
 
   it("should fail when deleting a product due to a missing dependencie", async () => {
     dependencies.productRepository = undefined as any;
 
-    expect(() => useCase.deleteProduct(dependencies))
-      .toThrow(Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.deleteProduct(dependencies)).toThrow(
+      Constants.httpErrors.PRODUCT_REPOSITORY_NOT_FOUD.message
+    );
   });
 });

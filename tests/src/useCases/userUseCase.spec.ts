@@ -62,54 +62,55 @@ describe("tests for user use case", () => {
   it("should be successful in adding a new user", async () => {
     const addUser = useCase.addUser(dependencies);
 
-    await expect(addUser(mockedUserData))
-      .resolves
-      .toMatchObject(mockedUserData);
+    await expect(addUser(mockedUserData)).resolves.toMatchObject(
+      mockedUserData
+    );
   });
 
   it("should fail when adding a new user due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
-    expect(() => useCase.addUser(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.addUser(dependencies)).toThrow(
+      Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in getting a user by id", async () => {
     const getUserById = useCase.getUserById(dependencies);
 
-    await expect(getUserById(mockedUserData.id))
-      .resolves
-      .toMatchObject(mockedUserData);
+    await expect(getUserById(mockedUserData.id)).resolves.toMatchObject(
+      mockedUserData
+    );
   });
 
   it("should fail when getting a user by id due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
-    expect(() => useCase.getUserById(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.getUserById(dependencies)).toThrow(
+      Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in updating a user", async () => {
     const updateUser = useCase.updateUser(dependencies);
 
-    await expect(updateUser(mockedUpdatedUser))
-      .resolves
-      .toMatchObject(mockedUpdatedUser);
+    await expect(updateUser(mockedUpdatedUser)).resolves.toMatchObject(
+      mockedUpdatedUser
+    );
   });
 
   it("should fail when updating a user due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
-    expect(() => useCase.updateUser(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.updateUser(dependencies)).toThrow(
+      Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message
+    );
   });
 
   it("should be successful in deleting a user", async () => {
     const deleteUser = useCase.deleteUser(dependencies);
 
-    await expect(deleteUser(mockedUserData))
-      .resolves
-      .toMatchObject([]);
+    await expect(deleteUser(mockedUserData)).resolves.toMatchObject([]);
   });
 
   it("should fail when deleting a user due tu a non existing user", async () => {
@@ -117,15 +118,14 @@ describe("tests for user use case", () => {
 
     const deleteUser = useCase.deleteUser(dependencies);
 
-    await expect(deleteUser())
-      .resolves
-      .toBeNull();
+    await expect(deleteUser()).resolves.toBeNull();
   });
 
   it("should fail when deleting a user due to a missing dependencie", async () => {
     dependencies.userRepository = undefined as any;
 
-    expect(() => useCase.deleteUser(dependencies))
-      .toThrow(Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message);
+    expect(() => useCase.deleteUser(dependencies)).toThrow(
+      Constants.httpErrors.USER_REPOSITORY_NOT_FOUD.message
+    );
   });
 });
