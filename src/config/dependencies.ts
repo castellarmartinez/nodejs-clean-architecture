@@ -5,9 +5,13 @@ import {
   OrderRepository,
 } from "../frameworks/repositories/inMemory";
 
+const userRepository = new UserRepository();
+const productRepository = new ProductRepository();
+const orderRepository = new OrderRepository();
+
 export default {
   useCases,
-  UserRepository,
-  ProductRepository,
-  OrderRepository,
+  userRepository,
+  productRepository,
+  orderRepository,
 };
