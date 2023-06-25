@@ -1,8 +1,6 @@
 import createHttpError from "http-errors";
 
-import { User } from "../../entities";
 import { Constants } from "../../constants";
-import { UserType } from "../../entities/User";
 import { Dependencies } from "../../dependencies";
 
 export function deleteUser(dependencies: Dependencies) {
@@ -15,10 +13,5 @@ export function deleteUser(dependencies: Dependencies) {
     );
   }
 
-  return (input: UserType = {}) => {
-    const { id, name, lastName, gender, meta } = input;
-    const user = new User({ id, name, lastName, gender, meta });
-
-    return userRepository.remove(user);
-  };
+  return (id: string) => userRepository.remove(id);
 }
