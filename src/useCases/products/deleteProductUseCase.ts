@@ -1,8 +1,6 @@
 import createHttpError from "http-errors";
 
-import { Product } from "../../entities";
 import { Constants } from "../../constants";
-import { ProductType } from "../../entities/Product";
 import { Dependencies } from "../../dependencies";
 
 export function deleteProduct(dependencies: Dependencies) {
@@ -15,10 +13,5 @@ export function deleteProduct(dependencies: Dependencies) {
     );
   }
 
-  return (input: ProductType = {}) => {
-    const { id, name, description, images, price, meta } = input;
-    const product = new Product({ id, name, description, images, price, meta });
-
-    return productRepository.remove(product);
-  };
+  return (id: string) => productRepository.remove(id);
 }

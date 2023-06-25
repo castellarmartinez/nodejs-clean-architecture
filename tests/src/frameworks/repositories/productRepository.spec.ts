@@ -42,7 +42,7 @@ describe("test suit for product repository", () => {
       meta: productData.meta,
     });
 
-    await productRepository.remove(newProduct);
+    await productRepository.remove(String(newProduct.id));
   });
 
   it("should add and return a new product with default values", async () => {
@@ -58,20 +58,20 @@ describe("test suit for product repository", () => {
       meta: {},
     });
 
-    await productRepository.remove(newProduct);
+    await productRepository.remove(String(newProduct.id));
   });
 
   it("should delete an existing product", async () => {
     const productData = new Product(mockedProductData);
     await productRepository.add(productData);
-    const products = await productRepository.remove(productData);
+    const products = await productRepository.remove(String(productData.id));
 
-    expect(products).toEqual([]);
+    expect(products).toBeTruthy();
   });
 
   it("should fail to delete an product", async () => {
     const productData = new Product(mockedProductData);
-    const products = await productRepository.remove(productData);
+    const products = await productRepository.remove(String(productData.id));
 
     expect(products).toBeNull();
   });
@@ -104,10 +104,10 @@ describe("test suit for product repository", () => {
       meta: newProductData.meta,
     });
 
-    await productRepository.remove(newProduct);
+    await productRepository.remove(String(newProduct.id));
   });
 
-  it("should fail to update an product due to invalid product", async () => {
+  it("should fail to update an product due to an invalid product", async () => {
     const productData = new Product(mockedProductData);
     const newProduct = await productRepository.add(productData);
 
@@ -127,7 +127,7 @@ describe("test suit for product repository", () => {
     const user = await productRepository.update(newProductData);
 
     expect(user).toBeNull();
-    await productRepository.remove(newProduct);
+    await productRepository.remove(String(newProduct.id));
   });
 
   it("should get an existing product by id", async () => {
@@ -144,7 +144,7 @@ describe("test suit for product repository", () => {
       meta: newProduct.meta,
     });
 
-    await productRepository.remove(newProduct);
+    await productRepository.remove(String(newProduct.id));
   });
 
   it("should fail to get an product by id", async () => {

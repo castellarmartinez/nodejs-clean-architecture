@@ -117,7 +117,7 @@ describe("tests for product use case", () => {
 
     const deleteProduct = useCase.deleteProduct(dependencies);
 
-    await expect(deleteProduct()).resolves.toBeNull();
+    await expect(deleteProduct("")).resolves.toBeNull();
   });
 
   it("should fail when deleting a product due to a missing dependencie", async () => {

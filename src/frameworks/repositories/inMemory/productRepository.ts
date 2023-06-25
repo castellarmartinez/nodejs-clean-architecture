@@ -26,15 +26,13 @@ export class ProductRepository {
     return null;
   }
 
-  async remove(productToRemove: Product) {
-    const index = inMemoryDB.products.findIndex(
-      (product) => product.id === productToRemove.id
-    );
+  async remove(id: string) {
+    const index = inMemoryDB.products.findIndex((product) => product.id === id);
 
     if (index >= 0) {
       inMemoryDB.products.splice(index, 1);
 
-      return inMemoryDB.products;
+      return true;
     }
 
     return null;
