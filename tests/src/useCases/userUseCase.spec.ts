@@ -118,7 +118,7 @@ describe("tests for user use case", () => {
 
     const deleteUser = useCase.deleteUser(dependencies);
 
-    await expect(deleteUser()).resolves.toBeNull();
+    await expect(deleteUser("")).resolves.toBeNull();
   });
 
   it("should fail when deleting a user due to a missing dependencie", async () => {

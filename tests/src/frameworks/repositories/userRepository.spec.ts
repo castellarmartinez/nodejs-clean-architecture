@@ -44,7 +44,7 @@ describe("users repository tests", () => {
       meta: userData.meta,
     });
 
-    await userRepository.remove(newUser);
+    await userRepository.remove(String(newUser.id));
   });
 
   it("should add and return a new user with default values", async () => {
@@ -58,20 +58,20 @@ describe("users repository tests", () => {
       meta: {},
     });
 
-    await userRepository.remove(newUser);
+    await userRepository.remove(String(newUser.id));
   });
 
   it("should delete an existing user", async () => {
     const userData = new User(mockedUserData);
     await userRepository.add(userData);
-    const users = await userRepository.remove(userData);
+    const users = await userRepository.remove(String(userData.id));
 
     expect(users).toEqual([]);
   });
 
   it("should fail to delete an user", async () => {
     const userData = new User(mockedUserData);
-    const users = await userRepository.remove(userData);
+    const users = await userRepository.remove(String(userData.id));
 
     expect(users).toBeNull();
   });
@@ -102,7 +102,7 @@ describe("users repository tests", () => {
       meta: newUserData.meta,
     });
 
-    await userRepository.remove(newUser);
+    await userRepository.remove(String(newUser!.id));
   });
 
   it("should fail to update an user due to invalid user", async () => {
@@ -125,7 +125,7 @@ describe("users repository tests", () => {
     const user = await userRepository.update(newUserData);
 
     expect(user).toBeNull();
-    await userRepository.remove(newUser);
+    await userRepository.remove(String(newUser!.id));
   });
 
   it("should get an existing user by id", async () => {
@@ -140,7 +140,7 @@ describe("users repository tests", () => {
       meta: newUser.meta,
     });
 
-    await userRepository.remove(newUser);
+    await userRepository.remove(String(user!.id));
   });
 
   it("should fail to get an user by id", async () => {
