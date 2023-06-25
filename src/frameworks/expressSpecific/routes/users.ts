@@ -7,8 +7,8 @@ export default (dependencies: Dependencies) => {
   const { addUser, getUserById, updateUser, deleteUser } =
     userControllers(dependencies);
 
-  router.route("/").post(addUser).put(updateUser);
-  router.route("/:id").get(getUserById).delete(deleteUser);
+  router.route("/").post(addUser);
+  router.route("/:id").get(getUserById).delete(deleteUser).put(updateUser);
 
   return router;
 };

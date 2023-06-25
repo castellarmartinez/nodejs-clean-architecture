@@ -7,8 +7,9 @@ import { UserType } from "../../entities/User";
 export default function (dependencies: Dependencies) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { body = {} } = req;
-      const { id, name, lastName, gender, meta }: UserType = body;
+      const { body = {}, params = {} } = req;
+      const { id } = params;
+      const { name, lastName, gender, meta }: UserType = body;
 
       const updateUser = userUseCase.updateUser(dependencies);
       const response = await updateUser({ id, name, lastName, gender, meta });
