@@ -66,7 +66,7 @@ describe("users repository tests", () => {
     await userRepository.add(userData);
     const users = await userRepository.remove(String(userData.id));
 
-    expect(users).toEqual([]);
+    expect(users).toBeTruthy();
   });
 
   it("should fail to delete an user", async () => {

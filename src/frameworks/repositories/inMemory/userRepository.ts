@@ -26,13 +26,13 @@ export class UserRepository {
     return null;
   }
 
-  async remove(id: string): Promise<User[] | null> {
+  async remove(id: string): Promise<true | null> {
     const index = inMemoryDB.users.findIndex((user) => user.id === id);
 
     if (index >= 0) {
       inMemoryDB.users.splice(index, 1);
 
-      return inMemoryDB.users;
+      return true;
     }
 
     return null;
