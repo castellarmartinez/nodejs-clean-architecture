@@ -1,7 +1,8 @@
 import express from "express";
 import { userControllers } from "../../../controllers";
+import { Dependencies } from "../../../dependencies";
 
-export default (dependencies: any) => {
+export default (dependencies: Dependencies) => {
   const router = express.Router();
   const { addUser, getUserById, updateUser, deleteUser } =
     userControllers(dependencies);
