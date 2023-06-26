@@ -119,7 +119,7 @@ describe("tests for order use case", () => {
 
     const deleteOrder = useCase.deleteOrder(dependencies);
 
-    await expect(deleteOrder()).resolves.toBeNull();
+    await expect(deleteOrder("")).resolves.toBeNull();
   });
 
   it("should fail when deleting an order due to a missing dependencie", async () => {

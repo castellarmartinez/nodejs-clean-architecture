@@ -42,7 +42,7 @@ describe("test suit for orders repository", () => {
     expect(newOrder.isPayed).toBe(orderData.isPayed);
     expect(newOrder.meta).toBe(orderData.meta);
 
-    await orderRepository.remove(newOrder);
+    await orderRepository.remove(String(newOrder.id));
   });
 
   it("should add and return a new order with default values", async () => {
@@ -57,20 +57,20 @@ describe("test suit for orders repository", () => {
     expect(newOrder.isPayed).toBeFalsy();
     expect(newOrder.meta).toEqual({});
 
-    await orderRepository.remove(newOrder);
+    await orderRepository.remove(String(newOrder.id));
   });
 
   it("should delete an existing order", async () => {
     const orderData = new Order(mockedOrderData);
     await orderRepository.add(orderData);
-    const orders = await orderRepository.remove(orderData);
+    const orders = await orderRepository.remove(String(orderData.id));
 
-    expect(orders).toEqual([]);
+    expect(orders).toBeTruthy();
   });
 
   it("should fail to delete an order", async () => {
     const orderData = new Order(mockedOrderData);
-    const orders = await orderRepository.remove(orderData);
+    const orders = await orderRepository.remove(String(orderData.id));
 
     expect(orders).toBeNull();
   });
@@ -100,7 +100,7 @@ describe("test suit for orders repository", () => {
     expect(order?.isPayed).toBeFalsy();
     expect(order?.meta).toBe(neworderData.meta);
 
-    await orderRepository.remove(newOrder);
+    await orderRepository.remove(String(newOrder.id));
   });
 
   it("should fail to update an order due to invalid order", async () => {
@@ -120,7 +120,7 @@ describe("test suit for orders repository", () => {
     const user = await orderRepository.update(neworderData);
 
     expect(user).toBeNull();
-    await orderRepository.remove(newOrder);
+    await orderRepository.remove(String(newOrder.id));
   });
 
   it("should get an existing order by id", async () => {
@@ -136,7 +136,7 @@ describe("test suit for orders repository", () => {
     expect(order?.isPayed).toBe(newOrder.isPayed);
     expect(order?.meta).toEqual(newOrder.meta);
 
-    await orderRepository.remove(newOrder);
+    await orderRepository.remove(String(newOrder.id));
   });
 
   it("should fail to get an order by id", async () => {
