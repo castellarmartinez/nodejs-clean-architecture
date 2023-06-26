@@ -26,15 +26,15 @@ export class OrderRepository {
     return null;
   }
 
-  async remove(orderToRemove: Order) {
+  async remove(id: string) {
     const index = inMemoryDB.orders.findIndex(
-      (order) => order.id === orderToRemove.id
+      (order) => order.id === id
     );
 
     if (index >= 0) {
       inMemoryDB.orders.splice(index, 1);
 
-      return inMemoryDB.orders;
+      return true;
     }
 
     return null;

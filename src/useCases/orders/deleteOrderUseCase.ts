@@ -2,8 +2,6 @@ import createHttpError from "http-errors";
 
 import { Constants } from "../../constants";
 import { Dependencies } from "../../dependencies";
-import { OrderType } from "../../entities/Order";
-import { Order } from "../../entities";
 
 export function deleteOrder(dependencies: Dependencies) {
   const { orderRepository } = dependencies;
@@ -15,10 +13,5 @@ export function deleteOrder(dependencies: Dependencies) {
     );
   }
 
-  return (input: OrderType = {}) => {
-    const { id, userId, productsId, date, isPayed, meta } = input;
-    const product = new Order({ id, userId, productsId, date, isPayed, meta });
-
-    return orderRepository.remove(product);
-  };
+  return (id: string) => orderRepository.remove(id);
 }
