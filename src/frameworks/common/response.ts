@@ -1,12 +1,32 @@
 type SuccessInput = {
   status: boolean;
-  error?: string | null;
+  error?: ErrorResponse | null;
   content: unknown;
 };
 
+type ErrorInput = {
+  status: number;
+  msg: string;
+  reason: string;
+  url: string;
+  ip: string;
+};
+
+
+export class HttpException extends Error {
+  public status: number;
+  public message: string;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+    this.message = message;
+  }
+}
+
 export class SuccessResponse {
   status: boolean;
-  error: string | null;
+  error: ErrorResponse | null;
   content: unknown;
 
   constructor({ error = null, status = false, content = null }: SuccessInput) {
@@ -17,19 +37,13 @@ export class SuccessResponse {
 }
 
 export class ErrorResponse {
-  status: boolean;
+  status: number;
   msg: string;
   reason: string;
   url: string;
   ip: string;
 
-  constructor(
-    status: boolean,
-    msg: string,
-    reason: string,
-    url: string,
-    ip: string
-  ) {
+  constructor({ status, msg, reason, url, ip }: ErrorInput) {
     this.status = status;
     this.msg = msg;
     this.reason = reason;
