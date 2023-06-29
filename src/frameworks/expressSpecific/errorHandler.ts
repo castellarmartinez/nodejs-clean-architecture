@@ -1,10 +1,8 @@
 import { SuccessResponse, ErrorResponse } from "../common";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { HttpException } from "../common/response";
 
-export default (err: unknown, req: Request, res: Response) => {
-  console.log("PASA");
-
+export default (err: unknown, req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof HttpException) {
     const error = new ErrorResponse({
       status: err.status ?? 500,
@@ -14,8 +12,7 @@ export default (err: unknown, req: Request, res: Response) => {
       ip: req.ip,
     });
 
-    req.statusCode = error.status;
-
+    res.status(error.status);
     res.json(
       new SuccessResponse({
         status: false,
@@ -23,5 +20,7 @@ export default (err: unknown, req: Request, res: Response) => {
         error,
       })
     );
+  } else {
+    res.json({Hola: "Mundo"});
   }
 };

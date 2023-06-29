@@ -9,10 +9,11 @@ export default function (dependencies: Dependencies) {
     try {
       const { body = {} } = req;
       const { id, userId, productsId, date, isPayed, meta }: OrderType = body;
-      throw {
-        status: 404,msg: "jus a test", reason: "because we want to play a bit"
-      }
-      
+
+      const a = 8;
+      //@ts-ignore
+      console.log(a.b.c);
+
       const addOrder = orderUseCase.addOrder(dependencies);
       const response = await addOrder({
         id,
