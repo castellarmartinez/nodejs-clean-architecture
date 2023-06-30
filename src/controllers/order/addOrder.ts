@@ -10,10 +10,6 @@ export default function (dependencies: Dependencies) {
       const { body = {} } = req;
       const { id, userId, productsId, date, isPayed, meta }: OrderType = body;
 
-      const a = 8;
-      //@ts-ignore
-      console.log(a.b.c);
-
       const addOrder = orderUseCase.addOrder(dependencies);
       const response = await addOrder({
         id,
