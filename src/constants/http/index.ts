@@ -19,4 +19,9 @@ export const httpErrors = {
     code: "ORDER_REPOSITORY_NOT_FOUD",
     message: "The order repository should exist in dependencies",
   },
+  INTERNAL_ERROR: {
+    httpCode: 500,
+    code: "INTERNAL_ERROR",
+    message: "An internal server error occurred",
+  },
 };
