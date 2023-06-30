@@ -14,7 +14,7 @@ export default {
     app.use(express.json());
     app.use(express.urlencoded());
 
-    app.use(API_PREFIX, routes(dependencies));    
+    app.use(API_PREFIX, routes(dependencies));
     app.use(errorHandler);
 
     app.listen(PORT, () => {
