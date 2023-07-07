@@ -2,9 +2,10 @@ import { Chance } from "chance";
 import { v4 as uuidv4 } from "uuid";
 
 import { Dependencies } from "../../../src/dependencies";
-import { OrderRepository } from "../../../src/frameworks/repositories/inMemory";
+import { OrderRepository, UserRepository, ProductRepository } from "../../../src/frameworks/repositories/inMemory";
 import { Constants } from "../../../src/constants";
 import { orderUseCase } from "../../../src/useCases/orders";
+import { Product, User, constants } from "../../../src/entities";
 
 jest.mock("uuid", () => ({
   v4: () => "444b10a3-02f2-4029-8617-5a5a3fd1f37e",
@@ -20,8 +21,26 @@ describe("tests for order use case", () => {
   const useCase = orderUseCase;
   let dependencies: Dependencies;
   let orderRepository: OrderRepository;
+  let userRepository: UserRepository;
+  let productRepository: ProductRepository;
   const userId = "444e10a3-02f2-4029-8637-5a5a3fd1f37e";
-  const productsId = "444e10a3-02f2-4029-8637-6a6a3fd1f37e";
+  const productId = "444e10a3-02f2-4029-8637-6a6a3fd1f37e";
+  const user: User = {
+    id: userId,
+    lastName: "Castellar",
+    name: "David",
+    gender: constants.Genders.MALE,
+    meta: {},
+  };
+  const product: Product = {
+    id: productId,
+    name: "David",
+    description: "This is an example product",
+    images: [{}],
+    price: 1000,
+    color: chance.color(),
+    meta: {},
+  };
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -34,7 +53,7 @@ describe("tests for order use case", () => {
         texture: "silk",
       },
       userId,
-      productsId,
+      productsId: [productId],
     };
 
     mockedUpdatedOrder = {
@@ -45,7 +64,7 @@ describe("tests for order use case", () => {
         texture: "wooden",
       },
       userId,
-      productsId,
+      productsId: [productId],
     };
 
     orderRepository = {
@@ -55,7 +74,23 @@ describe("tests for order use case", () => {
       getById: jest.fn().mockResolvedValue(mockedOrderData),
     };
 
+    userRepository = {
+      getById: jest.fn().mockResolvedValue(user),
+      add: jest.fn(),
+      update: jest.fn(),
+      remove: jest.fn(),
+    };
+
+    productRepository = {
+      getById: jest.fn().mockResolvedValue(product),
+      add: jest.fn(),
+      update: jest.fn(),
+      remove: jest.fn(),
+    };
+
     dependencies = {
+      userRepository,
+      productRepository,
       orderRepository,
     } as Dependencies;
   });
@@ -63,9 +98,7 @@ describe("tests for order use case", () => {
   it("should be successful in adding a new order", async () => {
     const addOrder = useCase.addOrder(dependencies);
 
-    await expect(addOrder(mockedOrderData)).resolves.toMatchObject(
-      mockedOrderData
-    );
+    await expect(addOrder(mockedOrderData)).resolves.toMatchObject(mockedOrderData);
   });
 
   it("should fail when adding a new order due to a missing dependencie", async () => {
@@ -79,9 +112,7 @@ describe("tests for order use case", () => {
   it("should be successful in getting an order by id", async () => {
     const getOrderById = useCase.getOrderById(dependencies);
 
-    await expect(getOrderById(mockedOrderData.id)).resolves.toMatchObject(
-      mockedOrderData
-    );
+    await expect(getOrderById(mockedOrderData.id)).resolves.toMatchObject(mockedOrderData);
   });
 
   it("should fail when getting an order by id due to a missing dependencie", async () => {
@@ -95,9 +126,7 @@ describe("tests for order use case", () => {
   it("should be successful in updating an order", async () => {
     const updateOrder = useCase.updateOrder(dependencies);
 
-    await expect(updateOrder(mockedUpdatedOrder)).resolves.toMatchObject(
-      mockedUpdatedOrder
-    );
+    await expect(updateOrder(mockedUpdatedOrder)).resolves.toMatchObject(mockedUpdatedOrder);
   });
 
   it("should fail when updating an order due to a missing dependencie", async () => {
