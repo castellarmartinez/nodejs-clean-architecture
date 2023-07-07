@@ -8,24 +8,22 @@ import { OrderType } from "../../entities/Order";
 
 export default function (dependencies: Dependencies) {
   const { userUseCase, productUseCase } = useCases;
-  const { getUserById } = userUseCase;
-  const { getProductById } = productUseCase;
 
-  if (!getUserById) {
+  if (!userUseCase.getUserById) {
     throw new Error("getUserByIdUseCase should be exist in dependencies");
   }
 
-  if (!getProductById) {
+  if (!productUseCase.getProductById) {
     throw new Error("getUserByIdUseCase should be exist in dependencies");
   }
 
-  const getUserByIdFunc = getUserById(dependencies);
-  const getProductByIdFunc = getProductById(dependencies);
+  const getUserById = userUseCase.getUserById(dependencies);
+  const getProductById = productUseCase.getProductById(dependencies);
 
   return async (order: OrderType) => {
     const { userId, productsId = [] } = order;
 
-    const products = await Promise.all(productsId.map(id => getProductByIdFunc(id)));
+    const products = await Promise.all(productsId.map(id => getProductById(id)));
 
     const notFoundIds = products.reduce((acc: string[], product, i) => {
       if (!product) {
@@ -42,7 +40,7 @@ export default function (dependencies: Dependencies) {
       });
     }
 
-    const user = await getUserByIdFunc(userId!);
+    const user = await getUserById(userId!);
 
     if (!user) {
       return new ValidationError({
