@@ -4,6 +4,7 @@ import "dotenv/config";
 import { routes } from "./frameworks/expressSpecific/routes";
 import dependencies from "./config/dependencies";
 import errorHandler from "./frameworks/expressSpecific/errorHandler";
+import "./frameworks/database/mongo";
 
 const app = express();
 const PORT = Number(process.env.PORT);
