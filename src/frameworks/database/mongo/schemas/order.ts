@@ -1,8 +1,8 @@
-import { Schema } from "mongoose";
+import { ObjectId, Schema, Types } from "mongoose";
 
 interface Order {
-  userId: string,
-  productsId: string[],
+  userId: Types.ObjectId,
+  productsId: Types.Array<Types.ObjectId>,
   isPayed: boolean,
   meta: object,
   createdAt: Date,
@@ -10,8 +10,8 @@ interface Order {
 }
 
 export default new Schema<Order>({
-  userId: String,
-  productsId: Array<string>,
+  userId: Types.ObjectId,
+  productsId: Array<ObjectId>,
   isPayed: Boolean,
   meta: Object,
   createdAt: Date,
