@@ -1,9 +1,10 @@
 import useCases from "../useCases";
 import {
-  UserRepository,
   ProductRepository,
   OrderRepository,
 } from "../frameworks/repositories/inMemory";
+
+import { UserRepository } from "../frameworks/repositories/mongo";
 
 const userRepository = new UserRepository();
 const productRepository = new ProductRepository();
