@@ -11,8 +11,8 @@ export default (dependencies: Dependencies) => {
   router
     .route("/:id")
     .get(getProductById)
-    .delete(updateProduct)
-    .put(deleteProduct);
+    .delete(deleteProduct)
+    .put(updateProduct);
 
   return router;
 };
