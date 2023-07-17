@@ -8,7 +8,7 @@ export class UserRepository {
   User = mongoose.model(this.entityName, userSchema);
 
   async add(user: User) {
-    const mongoObject = new this.User(user);
+    const mongoObject = new this.User({...user, createdAt: new Date()});
     return mongoObject.save();
   }
 
@@ -25,7 +25,7 @@ export class UserRepository {
       {
         new: true,
       }
-    ).lean();
+    );
   }
 
   async remove(id: string): Promise<true | null> {
@@ -37,7 +37,7 @@ export class UserRepository {
       {
         new: true,
       }
-    ).lean();
+    );
   }
 
   async getById(id: string) {

@@ -6,6 +6,7 @@ interface User {
   gender: number,
   meta: object,
   createdAt: Date,
+  updatedAt: Date,
   deletedAt: Date,
 }
 
@@ -15,5 +16,6 @@ export default new Schema<User>({
   gender: Number,
   meta: Object,
   createdAt: Date,
+  updatedAt: Date,
   deletedAt: Date,
 });
