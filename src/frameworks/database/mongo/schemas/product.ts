@@ -8,6 +8,7 @@ interface Product {
   color: string,
   meta: object,
   createdAt: Date,
+  updatedAt: Date,
   deletedAt: Date,
 }
 
@@ -19,5 +20,6 @@ export default new Schema<Product>({
   color: String,
   meta: Object,
   createdAt: Date,
+  updatedAt: Date,
   deletedAt: Date,
 });

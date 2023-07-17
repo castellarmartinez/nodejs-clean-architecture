@@ -1,9 +1,9 @@
-import {
-  ProductRepository,
-  OrderRepository,
-} from "../frameworks/repositories/inMemory";
+import { OrderRepository } from "../frameworks/repositories/inMemory";
 
-import { UserRepository } from "../frameworks/repositories/mongo";
+import {
+  UserRepository,
+  ProductRepository,
+} from "../frameworks/repositories/mongo";
 
 export interface Dependencies {
   userRepository: UserRepository;
