@@ -88,6 +88,7 @@ describe("tests for order use case", () => {
       remove: jest.fn(),
     };
 
+    //@ts-ignore
     dependencies = {
       userRepository,
       productRepository,
