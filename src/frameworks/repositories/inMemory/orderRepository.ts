@@ -27,9 +27,7 @@ export class OrderRepository {
   }
 
   async remove(id: string) {
-    const index = inMemoryDB.orders.findIndex(
-      (order) => order.id === id
-    );
+    const index = inMemoryDB.orders.findIndex((order) => order.id === id);
 
     if (index >= 0) {
       inMemoryDB.orders.splice(index, 1);

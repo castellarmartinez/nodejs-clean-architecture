@@ -5,7 +5,6 @@ import useCases from "../index";
 import { Dependencies } from "../../dependencies";
 import { OrderType } from "../../entities/Order";
 
-
 export default function (dependencies: Dependencies) {
   const { userUseCase, productUseCase } = useCases;
 
@@ -23,7 +22,9 @@ export default function (dependencies: Dependencies) {
   return async (order: OrderType) => {
     const { userId, productsId = [] } = order;
 
-    const products = await Promise.all(productsId.map(id => getProductById(id)));
+    const products = await Promise.all(
+      productsId.map((id) => getProductById(id))
+    );
 
     const notFoundIds = products.reduce((acc: string[], product, i) => {
       if (!product) {
@@ -36,7 +37,7 @@ export default function (dependencies: Dependencies) {
     if (!isEmpty(notFoundIds)) {
       return new ValidationError({
         field: "productsId",
-        msg: `No products with ids ${notFoundIds.join(", ")}`
+        msg: `No products with ids ${notFoundIds.join(", ")}`,
       });
     }
 
@@ -45,7 +46,7 @@ export default function (dependencies: Dependencies) {
     if (!user) {
       return new ValidationError({
         field: "userId",
-        msg: `No user with id ${userId}`
+        msg: `No user with id ${userId}`,
       });
     }
 

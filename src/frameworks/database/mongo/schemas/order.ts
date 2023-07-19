@@ -1,13 +1,13 @@
 import { ObjectId, Schema, Types } from "mongoose";
 
 interface Order {
-  userId: Types.ObjectId,
-  productsId: Types.Array<Types.ObjectId>,
-  isPayed: boolean,
-  meta: object,
-  createdAt: Date,
-  updatedAt: Date,
-  deletedAt: Date,
+  userId: Types.ObjectId;
+  productsId: Types.Array<Types.ObjectId>;
+  isPayed: boolean;
+  meta: object;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
 
 export default new Schema<Order>({

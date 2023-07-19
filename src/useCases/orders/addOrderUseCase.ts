@@ -27,14 +27,16 @@ export function addOrder(dependencies: Dependencies) {
     const validationErrors = await getValidationErrors(order);
 
     if (!isEmpty(validationErrors)) {
-      return Promise.reject(new ErrorResponse({
-        status: 403,
-        msg: "Validation Errors",
-        reason: "Somebody sent bad data",
-        validationErrors: [validationErrors],
-        ip: "",
-        url: "",
-      }));
+      return Promise.reject(
+        new ErrorResponse({
+          status: 403,
+          msg: "Validation Errors",
+          reason: "Somebody sent bad data",
+          validationErrors: [validationErrors],
+          ip: "",
+          url: "",
+        })
+      );
     }
 
     return orderRepository.add(order);

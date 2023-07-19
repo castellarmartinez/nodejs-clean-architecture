@@ -10,7 +10,9 @@ async function conectToDatabase() {
     if (error instanceof Error) {
       console.error("Database error:", error.message);
     } else {
-      console.error("An unexpected error happend while trying to connect to the database");
+      console.error(
+        "An unexpected error happend while trying to connect to the database"
+      );
     }
 
     console.info("The process has finished.\nPlease restart the process.");

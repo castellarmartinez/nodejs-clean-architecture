@@ -1,15 +1,15 @@
 import { Schema } from "mongoose";
 
 interface Product {
-  name: string,
-  description: string,
-  images: object[],
-  price: number,
-  color: string,
-  meta: object,
-  createdAt: Date,
-  updatedAt: Date,
-  deletedAt: Date,
+  name: string;
+  description: string;
+  images: object[];
+  price: number;
+  color: string;
+  meta: object;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
 
 export default new Schema<Product>({

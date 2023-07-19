@@ -13,7 +13,6 @@ type ErrorInput = {
   validationErrors?: ValidationError[];
 };
 
-
 export class HttpException extends Error {
   public status: number;
   public message: string;
@@ -45,7 +44,14 @@ export class ErrorResponse {
   ip: string;
   validationErrors: ValidationError[];
 
-  constructor({ status, msg, reason, url, ip, validationErrors = [] }: ErrorInput) {
+  constructor({
+    status,
+    msg,
+    reason,
+    url,
+    ip,
+    validationErrors = [],
+  }: ErrorInput) {
     this.status = status;
     this.msg = msg;
     this.reason = reason;
@@ -59,7 +65,7 @@ export class ValidationError {
   field: string;
   msg: string;
 
-  constructor({ field, msg }: { field: string, msg: string }) {
+  constructor({ field, msg }: { field: string; msg: string }) {
     this.field = field;
     this.msg = msg;
   }

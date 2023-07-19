@@ -8,7 +8,7 @@ export class UserRepository {
   User = mongoose.model(this.entityName, userSchema);
 
   async add(user: User) {
-    const mongoObject = new this.User({...user, createdAt: new Date()});
+    const mongoObject = new this.User({ ...user, createdAt: new Date() });
     return mongoObject.save();
   }
 
@@ -20,7 +20,7 @@ export class UserRepository {
       id,
       {
         ...updatedUser,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         new: true,
@@ -32,7 +32,7 @@ export class UserRepository {
     return this.User.findByIdAndUpdate(
       id,
       {
-        deletedAt: new Date()
+        deletedAt: new Date(),
       },
       {
         new: true,
@@ -44,4 +44,3 @@ export class UserRepository {
     return this.User.findOne({ _id: id });
   }
 }
-
