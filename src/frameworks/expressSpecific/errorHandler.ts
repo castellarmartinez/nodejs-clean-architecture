@@ -3,8 +3,14 @@ import { NextFunction, Request, Response } from "express";
 import { HttpException } from "../common/response";
 import { Constants } from "../../constants";
 
-export default (err: unknown, req: Request, res: Response, _next: NextFunction) => {
+export default (
+  err: unknown,
+  req: Request,
+  res: Response,
+  _next: NextFunction
+) => {
   let error: ErrorResponse;
+  console.error(err);
 
   if (err instanceof HttpException) {
     error = new ErrorResponse({
