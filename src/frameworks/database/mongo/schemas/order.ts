@@ -6,6 +6,7 @@ interface Order {
   isPayed: boolean,
   meta: object,
   createdAt: Date,
+  updatedAt: Date,
   deletedAt: Date,
 }
 
@@ -15,5 +16,6 @@ export default new Schema<Order>({
   isPayed: Boolean,
   meta: Object,
   createdAt: Date,
+  updatedAt: Date,
   deletedAt: Date,
 });

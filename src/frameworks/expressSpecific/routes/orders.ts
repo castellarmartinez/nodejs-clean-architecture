@@ -8,7 +8,7 @@ export default (dependencies: Dependencies) => {
     orderControllers(dependencies);
 
   router.route("/").post(addOrder);
-  router.route("/:id").get(getOrderById).delete(updateOrder).put(deleteOrder);
+  router.route("/:id").get(getOrderById).delete(deleteOrder).put(updateOrder);
 
   return router;
 };
