@@ -8,13 +8,10 @@ async function conectToDatabase() {
     console.info("Connected to the database.");
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Database error:", error.message);
-    } else {
-      console.error(
-        "An unexpected error happend while trying to connect to the database"
-      );
+      error = `Database error: ${error.message}`;
     }
 
+    console.error(error);
     console.info("The process has finished.\nPlease restart the process.");
     process.exit(0);
   }
