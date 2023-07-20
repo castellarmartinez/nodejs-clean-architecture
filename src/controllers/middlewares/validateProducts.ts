@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 
 import { OrderType } from "../../entities/Order";
 import { ValidationError } from "../../frameworks/common";
-import { productUseCase } from "../products";
+import { productUseCase } from "../../useCases/products";
 import { Dependencies } from "../../dependencies";
 
 export default function (dependencies: Dependencies) {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, _res: Response, next: NextFunction) => {
     try {
       const getProductById = productUseCase.getProductById(dependencies);
 
@@ -17,15 +17,17 @@ export default function (dependencies: Dependencies) {
         productsId!.map((id) => getProductById(id))
       );
 
-      const nonExistingProducts = productsId!.filter(
+      const productsNotFound = productsId!.filter(
         (_product, index) => !products[index]
       );
 
-      if (nonExistingProducts) {
-        return new ValidationError({
+      if (productsNotFound) {
+        const validationError = new ValidationError({
           field: "productsId",
-          msg: `No products with ids ${nonExistingProducts.join(", ")}`,
+          msg: `No products with ids ${productsNotFound.join(", ")}`,
         });
+
+        next(validationError);
       }
 
       next();
