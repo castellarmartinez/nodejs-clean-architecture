@@ -16,7 +16,6 @@ export default (
     error = new ErrorResponse({
       status: err.status,
       msg: err.message,
-      reason: err.stack ?? "No reason reported",
       url: req.originalUrl,
       ip: req.ip,
     });
@@ -24,7 +23,6 @@ export default (
     error = new ErrorResponse({
       status: Constants.httpErrors.INTERNAL_ERROR.httpCode,
       msg: Constants.httpErrors.INTERNAL_ERROR.code,
-      reason: Constants.httpErrors.INTERNAL_ERROR.message,
       url: req.originalUrl,
       ip: req.ip,
     });

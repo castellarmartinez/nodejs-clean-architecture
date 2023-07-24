@@ -7,7 +7,6 @@ type SuccessInput = {
 type ErrorInput = {
   status: number;
   msg: string;
-  reason: string;
   url: string;
   ip: string;
   validationErrors?: ValidationError[];
@@ -39,7 +38,6 @@ export class SuccessResponse {
 export class ErrorResponse {
   status: number;
   msg: string;
-  reason: string;
   url: string;
   ip: string;
   validationErrors: ValidationError[];
@@ -47,25 +45,24 @@ export class ErrorResponse {
   constructor({
     status,
     msg,
-    reason,
     url,
     ip,
     validationErrors = [],
   }: ErrorInput) {
     this.status = status;
     this.msg = msg;
-    this.reason = reason;
     this.url = url;
     this.ip = ip;
     this.validationErrors = validationErrors;
   }
 }
 
-export class ValidationError {
+export class ValidationError extends Error {
   field: string;
   msg: string;
 
   constructor({ field, msg }: { field: string; msg: string }) {
+    super(msg);
     this.field = field;
     this.msg = msg;
   }
