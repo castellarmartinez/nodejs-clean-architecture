@@ -1,26 +1,26 @@
 import { NextFunction, Request, Response } from "express";
 
 import { OrderType } from "../../entities/Order";
-import { ValidationError } from "../../frameworks/common";
 import { Dependencies } from "../../dependencies";
 import { userUseCase } from "../../useCases/users";
+import { HttpException } from "../../frameworks/common/response";
 
-export default function (dependencies: Dependencies) {
+export function validateUser(dependencies: Dependencies) {
   return async (req: Request, _res: Response, next: NextFunction) => {
     try {
-      const getUserById = userUseCase.getUserById(dependencies);
-
       const { body = {} } = req;
       const { userId }: OrderType = body;
+
+      const getUserById = userUseCase.getUserById(dependencies);
       const userNotFound = await getUserById(userId!);
 
       if (!userNotFound) {
-        const validationError = new ValidationError({
-          field: "userId",
-          msg: `No user with id ${userId}`,
-        });
+        const validationError = new HttpException(
+          404,
+          `No user with id ${userId}`
+        );
 
-        next(validationError);
+        return next(validationError);
       }
 
       next();

@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 
 import { OrderType } from "../../entities/Order";
-import { ValidationError } from "../../frameworks/common";
 import { productUseCase } from "../../useCases/products";
 import { Dependencies } from "../../dependencies";
+import { HttpException } from "../../frameworks/common/response";
 
-export default function (dependencies: Dependencies) {
+export function validateProducts(dependencies: Dependencies) {
   return async (req: Request, _res: Response, next: NextFunction) => {
     try {
       const getProductById = productUseCase.getProductById(dependencies);
@@ -21,11 +21,11 @@ export default function (dependencies: Dependencies) {
         (_product, index) => !products[index]
       );
 
-      if (productsNotFound) {
-        const validationError = new ValidationError({
-          field: "productsId",
-          msg: `No products with ids ${productsNotFound.join(", ")}`,
-        });
+      if (productsNotFound.length > 0) {
+        const validationError = new HttpException(
+          404,
+          `No products with ids ${productsNotFound.join(", ")}`
+        );
 
         next(validationError);
       }
